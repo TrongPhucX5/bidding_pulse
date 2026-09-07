@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
-	@GetMapping("/hello")
+	@GetMapping("/api/v1/hello")
 	@Operation(tags = "Hello Service", description = "When you send token information in the header it just says Hello")
 	public ResponseEntity<String> sayHello() {
 
