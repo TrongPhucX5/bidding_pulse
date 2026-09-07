@@ -1,49 +1,50 @@
 package vn.edu.uth.biddingpulse.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/**
- * Created on Ağustos, 2020
- *
- * @author Faruk
- */
+@Entity
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "USERS")
-public class User {
+@Table(name = "auction_sessions")
+public class AuctionSession {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String name;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "item_id", nullable = false)
+	private Item item;
 
-	@Column(unique = true)
-	private String username;
+	private LocalDateTime startTime;
 
-	private String password;
+	private LocalDateTime endTime;
 
-	private String email;
+	private BigDecimal basePrice;
 
-	private BigDecimal balance = BigDecimal.ZERO;
+	private BigDecimal stepPrice;
+
+	private BigDecimal depositAmount;
+
+	private BigDecimal currentHighestPrice;
 
 	@Enumerated(EnumType.STRING)
-	private UserRole userRole;
+	private AuctionStatus status;
 
+	private boolean settled;
 }
